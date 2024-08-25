@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - WorkHub</title>
+    <link rel="stylesheet" href="/static/chat-styles.css">
+    <script src="./videochat/AgoraRTC_N-4.20.2.js"></script>
+    <script src="/videochat/main.js"></script>
+</head>
+
+<body>
+    <div class="chat-container">
+        <h1>Team Chat</h1>
+        <div class="chat-options">
+            <button id="groupChatBtn" class="chat-btn">Start Group Chat</button>
+            <button id="videoCallBtn" class="chat-btn">Start Video Call</button>
+        </div>
+
+        <!-- Chat Window -->
+        <div id="chatWindow" class="chat-window">
+            <!-- Messages will be dynamically added here -->
+        </div>
+
+        <!-- Hidden Video Call Section -->
+        <div id="video-conferencing-container" class="hidden">
+            <iframe src="/videochat/index.html" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('groupChatBtn').addEventListener('click', function () {
+            // Simulate retrieving messages from a database
+            const messages = [
+    { sender: 'Mahindru', text: 'Hey everyone!' },
+    { sender: 'Joshi', text: 'Hey Mahindru! What’s up?' },
+    { sender: 'Mahindru', text: 'I’m getting stuck in the Online Integrated Platform for Student Projects. I can’t figure out how to integrate the navigation bar properly.' },
+    { sender: 'Semwal', text: 'Oh, I see. What exactly is the issue?' },
+    { sender: 'Mahindru', text: 'The navigation bar should only be visible after login, but it’s showing up before login. Also, I’m having trouble with the color scheme.' },
+    { sender: 'Saini', text: 'For the visibility issue, you can use conditional rendering based on the login state. Are you using React?' },
+    { sender: 'Mahindru', text: 'Yes, I’m using React. How can I implement conditional rendering?' },
+    { sender: 'Saini', text: 'You can use state to track whether the user is logged in. For example, you can have a loggedIn state and render the navigation bar based on that.' },
+    { sender: 'Joshi', text: 'As for the color scheme, you should make sure that the CSS is applied correctly. Double-check the classes and styles.' },
+    { sender: 'Semwal', text: 'Also, you might want to verify that the colors are not overridden by other styles. Use browser developer tools to inspect the elements.' },
+    { sender: 'Mahindru', text: 'Great suggestions! I’ll try implementing conditional rendering and check the CSS. Thanks for the help!' },
+    { sender: 'Saini', text: 'No problem! Let us know if you need more assistance.' }
+];
+
+
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.innerHTML = ''; // Clear previous messages
+
+            // Add messages to chat window
+            messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message');
+                messageDiv.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
+                chatWindow.appendChild(messageDiv);
+            });
+        });
+
+        document.getElementById('videoCallBtn').addEventListener('click', function () {
+            startVideoCall();
+        });
+
+        function startVideoCall() {
+            // Display the video call controls and area
+            const videohtml = document.getElementById('hidden-video');
+            videohtml.style.display = 'block';
+
+            // Assuming your AgoraRTC main.js handles the actual joining
+            document.getElementById('join-btn').click();
+        }
+        document.getElementById('videoCallBtn').addEventListener('click', function () {
+            const container = document.getElementById('video-conferencing-container');
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+        });
+
+    </script>
+</body>
+
+</html>
